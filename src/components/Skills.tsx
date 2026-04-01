@@ -46,10 +46,8 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
       tools: [
         'React',
         'Node.js',
-        'Express.js',
         'Tailwind CSS',
         'RESTful APIs',
-        'PostgreSQL',
         'Supabase',
         'Next.js',
       ],
@@ -65,6 +63,7 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
         'Jupyter',
         'Plotly & Matplotlib',
         'Deep Learning',
+        'Machine Learning',
         'Computer Vision',
       ],
     },
