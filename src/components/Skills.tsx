@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 
 interface SkillCategory {
   title: string;
@@ -14,66 +15,95 @@ interface SkillsProps {
 export default function Skills({ isDarkMode = false, language }: SkillsProps) {
   const [activeCategory, setActiveCategory] = useState(0);
 
-  // Definimos las categorías con sus títulos traducibles
-  const categories: (Omit<SkillCategory, 'title'> & { titleEn: string; titleEs: string })[] = [
-    {
-      titleEn: 'Hardware & Electronics',
-      titleEs: 'Hardware y Electrónica',
-      color: 'blue',
-      tools: [
-        'Circuit Design',
-        'PCB Design (KiCAD, Altium)',
-        'Embedded Systems',
-        'Signal Processing',
-        'Microcontrollers (ARM, AVR)',
-        'FPGA',
-        'Oscilloscopes & Multimeters',
-      ],
-    },
-    {
-      titleEn: 'Programming Languages',
-      titleEs: 'Lenguajes de Programación',
-      color: 'cyan',
-      tools: [
-        'C++',
-        'Python',
-        'Java',
-        'MATLAB',
-        'TypeScript',
-        'JavaScript',
-        'SQL',
-      ],
-    },
-    {
-      titleEn: 'Web Development',
-      titleEs: 'Desarrollo Web',
-      color: 'teal',
-      tools: [
-        'React',
-        'Node.js',
-        'Tailwind CSS',
-        'RESTful APIs',
-        'Supabase',
-        'Next.js',
-      ],
-    },
-    {
-      titleEn: 'Data Science & ML',
-      titleEs: 'Ciencia de Datos y ML',
-      color: 'green',
-      tools: [
-        'TensorFlow',
-        'PyTorch',
-        'scikit-learn',
-        'Pandas & NumPy',
-        'Jupyter',
-        'Plotly & Matplotlib',
-        'Deep Learning',
-        'Machine Learning',
-        'Computer Vision',
-      ],
-    },
-  ];
+  const categoriesData: Record<'en' | 'es', SkillCategory[]> = {
+    en: [
+      {
+        title: 'Hardware & Electronics',
+        color: 'blue',
+        tools: [
+          'Circuit Design', 'PCB Design (KiCAD, Altium)', 'Embedded Systems',
+          'Signal Processing', 'Microcontrollers (ARM, AVR)', 'FPGA', 'Oscilloscopes & Multimeters',
+        ],
+      },
+      {
+        title: 'Programming Languages',
+        color: 'cyan',
+        tools: ['C++', 'Python', 'Java', 'MATLAB', 'TypeScript', 'JavaScript', 'SQL'],
+      },
+      {
+        title: 'Web Development',
+        color: 'teal',
+        tools: ['React', 'Node.js', 'Tailwind CSS', 'RESTful APIs', 'Supabase', 'Next.js'],
+      },
+      {
+        title: 'Data Science & ML',
+        color: 'green',
+        tools: [
+          'TensorFlow', 'PyTorch', 'scikit-learn', 'Pandas & NumPy', 'Jupyter',
+          'Plotly & Matplotlib', 'Deep Learning', 'Machine Learning', 'Computer Vision',
+        ],
+      },
+    ],
+    es: [
+      {
+        title: 'Hardware y Electrónica',
+        color: 'blue',
+        tools: [
+          'Diseño de Circuitos', 'Diseño de PCB (KiCAD, Altium)', 'Sistemas Embebidos',
+          'Procesamiento de Señales', 'Microcontroladores (ARM, AVR)', 'FPGA', 'Osciloscopios y Multímetros',
+        ],
+      },
+      {
+        title: 'Lenguajes de Programación',
+        color: 'cyan',
+        tools: ['C++', 'Python', 'Java', 'MATLAB', 'TypeScript', 'JavaScript', 'SQL'],
+      },
+      {
+        title: 'Desarrollo Web',
+        color: 'teal',
+        tools: ['React', 'Node.js', 'Tailwind CSS', 'RESTful APIs', 'Supabase', 'Next.js'],
+      },
+      {
+        title: 'Ciencia de Datos y ML',
+        color: 'green',
+        tools: [
+          'TensorFlow', 'PyTorch', 'scikit-learn', 'Pandas & NumPy', 'Jupyter',
+          'Plotly & Matplotlib', 'Deep Learning', 'Machine Learning', 'Visión por Computadora',
+        ],
+      },
+    ],
+  };
+
+  const categories = categoriesData[language];
+
+  // Variantes para las categorías (Stagger)
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const buttonVariants: Variants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  // Variantes para las etiquetas (Pop-in con rebote)
+  const tagVariants: Variants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: (i: number) => ({
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: i * 0.05,
+        type: "spring",
+        stiffness: 260,
+        damping: 20
+      }
+    })
+  };
 
   const getColorClasses = (color: string) => {
     const lightMode: Record<string, { bg: string; text: string; tag: string }> = {
@@ -94,16 +124,29 @@ export default function Skills({ isDarkMode = false, language }: SkillsProps) {
   };
 
   return (
-    <section id="skills" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
+    <section id="skills" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'} overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+        >
           {language === 'en' ? 'Technical Skills' : 'Habilidades Técnicas'}
-        </h2>
+        </motion.h2>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* Botones de Categoría con Stagger */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
           {categories.map((category, index) => (
-            <button
-              key={index}
+            <motion.button
+              key={category.title}
+              variants={buttonVariants}
               onClick={() => setActiveCategory(index)}
               className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                 activeCategory === index
@@ -113,28 +156,42 @@ export default function Skills({ isDarkMode = false, language }: SkillsProps) {
                   : 'bg-white text-gray-600 hover:bg-gray-100'
               }`}
             >
-              {language === 'en' ? category.titleEn : category.titleEs}
-            </button>
+              {category.title}
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        <div className={`max-w-4xl mx-auto rounded-lg shadow-lg p-8 ${isDarkMode ? 'dark bg-gray-800' : 'bg-white'}`}>
-          <h3 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {language === 'en' ? categories[activeCategory].titleEn : categories[activeCategory].titleEs}
-          </h3>
-          <div className="flex flex-wrap gap-3">
-            {categories[activeCategory].tools.map((tool) => (
-              <div
-                key={tool}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-transform hover:scale-105 ${
-                  getColorClasses(categories[activeCategory].color).tag
-                }`}
-              >
-                {tool}
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Contenedor de Skills con Animación al cambiar */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeCategory} // Reinicia la animación cada vez que cambia la categoría
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className={`max-w-4xl mx-auto rounded-lg shadow-lg p-8 ${isDarkMode ? 'dark bg-gray-800' : 'bg-white'}`}
+          >
+            <h3 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              {categories[activeCategory].title}
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {categories[activeCategory].tools.map((tool, idx) => (
+                <motion.div
+                  key={`${activeCategory}-${tool}`}
+                  custom={idx}
+                  initial="hidden"
+                  animate="visible"
+                  variants={tagVariants}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-transform hover:scale-110 ${
+                    getColorClasses(categories[activeCategory].color).tag
+                  }`}
+                >
+                  {tool}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

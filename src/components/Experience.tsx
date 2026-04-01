@@ -1,4 +1,5 @@
 import { Briefcase, GraduationCap } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 
 interface ExperienceProps {
   isDarkMode?: boolean;
@@ -87,22 +88,52 @@ export default function Experience({ isDarkMode = false, language }: ExperienceP
     },
   ];
 
-  return (
-    <section id="experience" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-          {language === 'en' ? 'Experience & Education' : 'Experiencia y Educación'}
-        </h2>
+  // Variantes para las tarjetas (Reveal de abajo hacia arriba)
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.15,
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    }),
+  };
 
+  return (
+    <section id="experience" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-white'} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+        >
+          {language === 'en' ? 'Experience & Education' : 'Experiencia y Educación'}
+        </motion.h2>
+
+        {/* Sección Educación */}
         <div className="mb-16">
-          <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <motion.h3 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+          >
             <GraduationCap className="text-blue-600" size={28} />
             {language === 'en' ? 'Education' : 'Educación'}
-          </h3>
+          </motion.h3>
           <div className="space-y-6">
             {education.map((edu, index) => (
-              <div
+              <motion.div
                 key={index}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={cardVariants}
                 className={`rounded-lg p-6 border-l-4 border-blue-600 ${
                   isDarkMode ? 'dark bg-blue-900/30' : 'bg-blue-50'
                 }`}
@@ -115,20 +146,31 @@ export default function Experience({ isDarkMode = false, language }: ExperienceP
                   {edu.institution}
                 </div>
                 <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>{edu.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
+        {/* Sección Experiencia */}
         <div>
-          <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <motion.h3 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+          >
             <Briefcase className={isDarkMode ? 'text-cyan-400' : 'text-cyan-600'} size={28} />
             {language === 'en' ? 'Professional Experience' : 'Experiencia Profesional'}
-          </h3>
+          </motion.h3>
           <div className="space-y-8">
             {experience.map((exp, index) => (
-              <div
+              <motion.div
                 key={index}
+                custom={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={cardVariants}
                 className={`rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow ${
                   isDarkMode ? 'dark bg-gray-800' : 'bg-white'
                 }`}
@@ -141,13 +183,20 @@ export default function Experience({ isDarkMode = false, language }: ExperienceP
                 <p className={`mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{exp.description}</p>
                 <ul className="space-y-2">
                   {exp.highlights.map((highlight, idx) => (
-                    <li key={idx} className={`flex items-start gap-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <motion.li 
+                      key={idx} 
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.5 + idx * 0.1 }}
+                      className={`flex items-start gap-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    >
                       <span className={isDarkMode ? 'text-cyan-400 mt-1' : 'text-cyan-600 mt-1'}>•</span>
                       <span>{highlight}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

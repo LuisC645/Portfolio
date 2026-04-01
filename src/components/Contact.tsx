@@ -15,13 +15,13 @@ export default function Contact({ isDarkMode = false, language }: ContactProps) 
       title: 'Get In Touch',
       description: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
       location: 'Location',
-      footer: 'Built with React, TypeScript & Tailwind CSS'
+      footer: 'Built with React, TypeScript & Tailwind CSS | Copyright © Luis Castillo 2026'
     },
     es: {
       title: 'Contacto',
       description: 'Siempre estoy abierto a discutir nuevos proyectos, ideas creativas o cualquier oportunidad para ser parte de tu visión.',
       location: 'Ubicación',
-      footer: 'Construido con React, TypeScript y Tailwind CSS'
+      footer: 'Construido con React, TypeScript y Tailwind CSS | Copyright © Luis Castillo 2026'
     }
   };
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 
 // --- MACROS / CONSTANTES (Datos que no cambian por idioma) ---
 const GITHUB_BASE = 'https://github.com/LuisC645';
@@ -8,56 +9,56 @@ const PROJECT_ASSETS = {
   emotion: {
     category: 'Data Science',
     tags: ['Python', 'Machine Learning', 'SVM', 'PCA'],
-    image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE + '/emotion-classifier',
+    image: '../img/SVM.webp',
+    githubUrl: GITHUB_BASE + '/High-Low_Emotions',
   },
   video: {
     category: 'Data Science',
     tags: ['Computer Vision', 'MediaPipe', 'Python'],
-    image: 'https://images.pexels.com/photos/8438918/pexels-photo-8438918.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/face.webp',
+    githubUrl: GITHUB_BASE + '/video-processing',
   },
   gps: {
     category: 'Hardware',
     tags: ['Embedded Systems', 'Raspberry Pi', 'C/C++'],
-    image: 'https://images.pexels.com/photos/159201/circuit-circuit-board-resistor-computer-159201.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/gps.webp',
+    githubUrl: GITHUB_BASE + '/GPS_RP2040',
   },
   logger: {
     category: 'Hardware',
     tags: ['C', 'RP2040', 'Embedded Systems', 'CMake'],
-    image: 'https://images.pexels.com/photos/163100/circuit-board-computer-technology-163100.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/logger.webp',
+    githubUrl: GITHUB_BASE + '/Data_logger_RP2040 ',
   },
   reaction: {
     category: 'Hardware',
     tags: ['C', 'RP2040', 'State Machine', 'Electronics'],
-    image: 'https://images.pexels.com/photos/3825582/pexels-photo-3825582.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/game.webp',
+    githubUrl: GITHUB_BASE + '/Reaction_game_RP240 ',
   },
   stm32: {
     category: 'Hardware',
     tags: ['C', 'STM32', 'HAL', 'Microcontrollers'],
-    image: 'https://images.pexels.com/photos/3434523/pexels-photo-3434523.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/stm32.webp',
+    githubUrl: GITHUB_BASE + '/EXTI_STM32L4-',
   },
   realestate: {
     category: 'Software',
     tags: ['Frontend', 'Web Development', 'UI/UX'],
-    image: 'https://images.pexels.com/photos/270404/pexels-photo-270404.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/realstate.webp',
+    githubUrl: GITHUB_BASE + '/Bienes_raices',
   },
   beauty: {
     category: 'Software',
     tags: ['Frontend', 'React', 'CSS'],
-    image: 'https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/beauty.webp',
+    githubUrl: GITHUB_BASE + '/SalonBelleza',
   },
   portfolio: {
     category: 'Software',
     tags: ['React', 'TypeScript', 'Tailwind CSS'],
-    image: 'https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=800',
-    githubUrl: GITHUB_BASE,
+    image: '../img/portfolio.webp',
+    githubUrl: GITHUB_BASE + '/portfolio',
   }
 };
 
@@ -74,37 +75,35 @@ export default function Projects({ isDarkMode = false, language }: ProjectsProps
 
   const [selectedCategory, setSelectedCategory] = useState(categoriesDict[language][0]);
 
-  // EFECTO PARA NO ROMPER SINERGIA: Resetear a "All/Todos" cuando cambie el idioma
   useEffect(() => {
     setSelectedCategory(categoriesDict[language][0]);
   }, [language]);
 
   const projectsContent = {
     en: [
-      { id: 'emotion', title: 'High/Low Emotion Classifier', description: 'Machine learning pipeline developed in Python to classify high and low emotional states. Implements SVM and KNN with PCA.' },
+      { id: 'emotion', title: 'High/Low Emotion Classifier', description: 'Machine learning pipeline developed in Python to classify emotional states using SVM and KNN.' },
       { id: 'video', title: 'Video Processing & Landmark Detection', description: 'Computer vision tool using MediaPipe for 3D body landmark detection and face cropping.' },
-      { id: 'gps', title: 'Raspberry Pi Pico GPS Tracker', description: 'Embedded GPS tracking system featuring NMEA sentence parsing and real-time battery monitoring.' },
-      { id: 'logger', title: 'RP2040 Embedded Data Logger', description: 'C-based data logger with dual-channel analog signal acquisition up to 5kHz and LCD display.' },
-      { id: 'reaction', title: 'Reaction Time Testing System', description: 'Interactive reaction time game built on the RP2040 with random delays and penalty logic.' },
-      { id: 'stm32', title: 'STM32 EXTI Hardware Abstraction Layer', description: 'Custom HAL written in C for the Extended Interrupt and Event Controller on STM32L4+.' },
-      { id: 'realestate', title: 'Real Estate Web Platform', description: 'Frontend-focused web layout for a real estate agency with responsive modern UI.' },
-      { id: 'beauty', title: 'Beauty Salon Management Interface', description: 'Layout designed for a beauty salon featuring service browsing and appointment booking.' },
+      { id: 'gps', title: 'Raspberry Pi Pico GPS Tracker', description: 'Embedded GPS tracking system featuring NMEA parsing and real-time battery monitoring.' },
+      { id: 'logger', title: 'RP2040 Embedded Data Logger', description: 'C-based data logger with analog signal acquisition up to 5kHz and LCD metrics display.' },
+      { id: 'reaction', title: 'Reaction Time Testing System', description: 'Interactive reaction time game built on RP2040 with random delays and penalty logic.' },
+      { id: 'stm32', title: 'STM32 EXTI Hardware Abstraction Layer', description: 'Custom HAL written in C for the Extended Interrupt Controller on STM32L4+.' },
+      { id: 'realestate', title: 'Real Estate Web Platform', description: 'Frontend-focused layout for a real estate agency with responsive modern UI.' },
+      { id: 'beauty', title: 'Beauty Salon Management Interface', description: 'Layout designed for beauty salons featuring service browsing and appointment booking.' },
       { id: 'portfolio', title: 'Personal Developer Portfolio', description: 'Responsive personal portfolio built with React, TypeScript, and Tailwind CSS.' }
     ],
     es: [
       { id: 'emotion', title: 'Clasificador de Emociones High/Low', description: 'Pipeline de machine learning en Python para clasificar estados emocionales usando SVM y KNN.' },
       { id: 'video', title: 'Procesamiento de Video y Landmarks', description: 'Herramienta de visión artificial usando MediaPipe para detección de puntos corporales 3D.' },
-      { id: 'gps', title: 'Rastreador GPS Raspberry Pi Pico', description: 'Sistema de seguimiento GPS embebido con análisis de sentencias NMEA y monitoreo de batería.' },
-      { id: 'logger', title: 'Data Logger Embebido RP2040', description: 'Data logger en C con adquisición de señales analógicas de dos canales y filtros de media móvil.' },
+      { id: 'gps', title: 'Rastreador GPS Raspberry Pi Pico', description: 'Sistema de seguimiento GPS embebido con análisis NMEA y monitoreo de batería.' },
+      { id: 'logger', title: 'Data Logger Embebido RP2040', description: 'Data logger en C con adquisición de señales analógicas hasta 5kHz y visualización en LCD.' },
       { id: 'reaction', title: 'Sistema de Tiempo de Reacción', description: 'Juego interactivo de tiempo de reacción sobre RP2040 con medición de alta precisión.' },
       { id: 'stm32', title: 'Capa de Abstracción STM32 EXTI', description: 'HAL personalizada escrita en C para el controlador de interrupciones externas en STM32L4+.' },
-      { id: 'realestate', title: 'Plataforma Web Inmobiliaria', description: 'Diseño frontend para una agencia inmobiliaria con interfaces responsivas modernas.' },
-      { id: 'beauty', title: 'Interfaz de Salón de Belleza', description: 'Diseño de aplicación web para gestión de servicios y reserva de citas en peluquerías.' },
-      { id: 'portfolio', title: 'Portafolio Personal', description: 'Portafolio responsivo construido con React, TypeScript y Tailwind CSS' }
+      { id: 'realestate', title: 'Plataforma Web Inmobiliaria', description: 'Diseño frontend para una inmobiliaria con interfaces responsivas modernas.' },
+      { id: 'beauty', title: 'Interfaz de Salón de Belleza', description: 'Diseño de aplicación web para gestión de servicios y reserva de citas.' },
+      { id: 'portfolio', title: 'Portafolio Personal', description: 'Portafolio responsivo construido con React, TypeScript y Tailwind CSS.' }
     ]
   };
 
-  // Combinar activos fijos con textos traducidos
   const currentProjects = projectsContent[language].map(content => ({
     ...content,
     ...PROJECT_ASSETS[content.id as keyof typeof PROJECT_ASSETS]
@@ -116,14 +115,40 @@ export default function Projects({ isDarkMode = false, language }: ProjectsProps
         ? categoriesDict.en[categoriesDict.es.indexOf(selectedCategory)] 
         : selectedCategory));
 
-  return (
-    <section id="projects" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-          {language === 'en' ? 'Featured Projects' : 'Proyectos Destacados'}
-        </h2>
+  // --- VARIANTES DE ANIMACIÓN ---
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1, // Stagger effect
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    })
+  };
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+  return (
+    <section id="projects" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-white'} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+        >
+          {language === 'en' ? 'Featured Projects' : 'Proyectos Destacados'}
+        </motion.h2>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
           {categoriesDict[language].map((category) => (
             <button
               key={category}
@@ -137,11 +162,22 @@ export default function Projects({ isDarkMode = false, language }: ProjectsProps
               {category}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          layout // Suaviza el movimiento cuando se filtran proyectos
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {filteredProjects.map((project, index) => (
-            <div key={index} className={`rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${isDarkMode ? 'dark bg-gray-800' : 'bg-white'}`}>
+            <motion.div 
+              key={project.id}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={cardVariants}
+              className={`rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${isDarkMode ? 'dark bg-gray-800' : 'bg-white'}`}
+            >
               <div className="h-48 overflow-hidden">
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
               </div>
@@ -165,9 +201,9 @@ export default function Projects({ isDarkMode = false, language }: ProjectsProps
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

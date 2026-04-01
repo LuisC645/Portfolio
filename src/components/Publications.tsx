@@ -1,4 +1,5 @@
 import { BookOpen, ExternalLink } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 
 interface PublicationsProps {
   isDarkMode?: boolean;
@@ -39,22 +40,59 @@ export default function Publications({ isDarkMode = false, language }: Publicati
 
   const t = content[language];
 
-  return (
-    <section id="publications" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-          {t.title}
-        </h2>
+  // Variantes para la animación de las publicaciones
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
 
-        <div>
-          <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  return (
+    <section id="publications" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+        >
+          {t.title}
+        </motion.h2>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+        >
+          <motion.h3 
+            variants={itemVariants}
+            className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+          >
             <BookOpen className="text-blue-600" size={28} />
             {t.subtitle}
-          </h3>
+          </motion.h3>
+          
           <div className="space-y-6">
             {publications.map((pub, index) => (
-              <div
+              <motion.div
                 key={index}
+                variants={itemVariants}
                 className={`rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow ${
                   isDarkMode ? 'dark bg-gray-800' : 'bg-white'
                 }`}
@@ -109,10 +147,10 @@ export default function Publications({ isDarkMode = false, language }: Publicati
                     </a>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
