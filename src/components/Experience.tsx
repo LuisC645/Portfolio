@@ -7,34 +7,57 @@ interface ExperienceProps {
 export default function Experience({ isDarkMode = false }: ExperienceProps) {
   const education = [
     {
-      degree: 'Bachelor of Electronic Engineering',
+      degree: 'B.Sc. in Electronic Engineering',
       institution: 'University of Antioquia',
-      period: 'Expected 2024',
-      description: 'Specialized in embedded systems, signal processing, and digital communications. Active in research projects combining hardware and software.',
+      period: 'Jan 2021 - Present',
+      description: 'Focus on embedded systems, data analysis, machine learning, pattern recognition, and the development of predictive models and technological solutions.',
+    },
+    {
+      degree: 'Deep Learning Fundamentals (Certification)',
+      institution: 'University of Antioquia',
+      period: 'May 2025',
+      description: 'Specialized certification in deep learning architectures and methodologies.',
+    },
+    {
+      degree: 'Summer School in Neuroengineering',
+      institution: 'University of Antioquia',
+      period: 'Jun 2024 - Jul 2024',
+      description: 'Focused on human-centric neuroengineering and neurorehabilitation technologies.',
     },
   ];
 
   const experience = [
     {
-      role: 'Freelance Full-Stack Developer',
-      company: 'Self-Employed',
-      period: '2021 - Present',
-      description: 'Developed responsive web applications using React, TypeScript, and modern backend frameworks. Delivered projects for diverse clients across various industries.',
+      role: 'Researcher',
+      company: 'GITA Research Group (University of Antioquia)',
+      period: 'Oct 2024 - Sep 2025',
+      description: 'Contributed to the research project focusing on the analysis and development of biomarkers based on speech and language patterns for the study of neurodegenerative diseases.',
       highlights: [
-        'Built 10+ production-ready web applications',
-        'Implemented RESTful APIs and database solutions',
-        'Managed complete development lifecycle',
+        'Primary author of published research on Parkinson\'s detection using deep learning (Springer, 2025)',
+        'Developed machine learning models with an emphasis on video-based analysis',
+        'Executed advanced data analysis, feature extraction, and pattern recognition using Python',
       ],
     },
     {
-      role: 'Research Assistant',
-      company: 'Neuroengineering Research Lab',
-      period: '2022 - 2023',
-      description: 'Contributed to research projects involving signal processing, predictive modeling, and deep learning applications for medical diagnostics.',
+      role: 'Research Group Member',
+      company: 'GITA Research Group (University of Antioquia)',
+      period: 'Mar 2023 - Present',
+      description: 'Active member of the telecommunications research group, working on the development of predictive models and complex data processing.',
       highlights: [
-        'Co-authored book chapter on Parkinson\'s detection',
-        'Developed signal processing algorithms',
-        'Analyzed and visualized complex datasets',
+        'Applied data analysis techniques using Python',
+        'Implemented machine learning and pattern recognition algorithms',
+        'Processed large volumes of data in structured environments',
+      ],
+    },
+    {
+      role: 'Full-Stack Developer & Automation',
+      company: 'Freelance',
+      period: 'Jan 2020 - Dec 2023',
+      description: 'Developed responsive and scalable web applications and automated operational processes for various clients.',
+      highlights: [
+        'Built full-stack applications using React, PHP, CSS, HTML, and JavaScript',
+        'Developed robust backend architectures utilizing PHP and Python',
+        'Automated operational processes through Python scripts to improve efficiency',
       ],
     },
   ];
@@ -59,9 +82,9 @@ export default function Experience({ isDarkMode = false }: ExperienceProps) {
                   isDarkMode ? 'dark bg-blue-900/30' : 'bg-blue-50'
                 }`}
               >
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-2 gap-2">
                   <h4 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{edu.degree}</h4>
-                  <span className={`font-semibold ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>{edu.period}</span>
+                  <span className={`font-semibold whitespace-nowrap ${isDarkMode ? 'text-cyan-400' : 'text-blue-600'}`}>{edu.period}</span>
                 </div>
                 <div className={`font-semibold mb-3 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {edu.institution}
@@ -85,9 +108,9 @@ export default function Experience({ isDarkMode = false }: ExperienceProps) {
                   isDarkMode ? 'dark bg-gray-800' : 'bg-white'
                 }`}
               >
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-2 gap-2">
                   <h4 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{exp.role}</h4>
-                  <span className={`font-semibold ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{exp.period}</span>
+                  <span className={`font-semibold whitespace-nowrap ${isDarkMode ? 'text-cyan-400' : 'text-cyan-600'}`}>{exp.period}</span>
                 </div>
                 <div className={`font-semibold mb-3 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{exp.company}</div>
                 <p className={`mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{exp.description}</p>

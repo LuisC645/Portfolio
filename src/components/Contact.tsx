@@ -23,7 +23,7 @@ export default function Contact({ isDarkMode = false }: ContactProps) {
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:luisandres645@gmail.com"
               className="bg-white/10 hover:bg-white/20 rounded-lg p-6 transition-all transform hover:scale-105"
             >
               <div className="flex items-center gap-4">
@@ -32,7 +32,7 @@ export default function Contact({ isDarkMode = false }: ContactProps) {
                 </div>
                 <div>
                   <div className="font-semibold mb-1">Email</div>
-                  <div className="text-blue-200">your.email@example.com</div>
+                  <div className="text-blue-200">luisandres645@gmail.com</div>
                 </div>
               </div>
             </a>
@@ -52,7 +52,7 @@ export default function Contact({ isDarkMode = false }: ContactProps) {
 
           <div className="flex justify-center gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/LuisC645"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white/10 hover:bg-white/20 rounded-full transition-all transform hover:scale-110"
@@ -60,7 +60,7 @@ export default function Contact({ isDarkMode = false }: ContactProps) {
               <Github size={28} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/luis-castillo-chicaiza-326221181/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 bg-white/10 hover:bg-white/20 rounded-full transition-all transform hover:scale-110"
