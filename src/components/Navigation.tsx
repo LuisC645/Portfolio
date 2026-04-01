@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
 
 interface NavigationProps {
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
+  language: 'en' | 'es'; // Añadimos el estado del idioma
+  onToggleLanguage: () => void; // Añadimos la función para cambiarlo
 }
 
-export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationProps) {
+export default function Navigation({ isDarkMode, onToggleDarkMode, language, onToggleLanguage }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -18,14 +20,27 @@ export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationP
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Publications', href: '#publications' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Contact', href: '#contact' },
-  ];
+  // Diccionario de navegación dependiente del idioma
+  const navItems = {
+    en: [
+      { label: 'About', href: '#about' },
+      { label: 'Skills', href: '#skills' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Publications', href: '#publications' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Contact', href: '#contact' },
+    ],
+    es: [
+      { label: 'Sobre Mí', href: '#about' },
+      { label: 'Habilidades', href: '#skills' },
+      { label: 'Proyectos', href: '#projects' },
+      { label: 'Publicaciones', href: '#publications' },
+      { label: 'Experiencia', href: '#experience' },
+      { label: 'Contacto', href: '#contact' },
+    ]
+  };
+
+  const currentNavItems = navItems[language] || navItems.en;
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -56,12 +71,13 @@ export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationP
             Portfolio
           </button>
 
-          <div className="hidden md:flex space-x-8 items-center">
-            {navItems.map((item) => (
+          {/* MENÚ DE ESCRITORIO */}
+          <div className="hidden md:flex space-x-6 items-center">
+            {currentNavItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`transition-colors hover:text-blue-600 ${
+                className={`transition-colors font-medium hover:text-cyan-500 ${
                   isScrolled
                     ? isDarkMode
                       ? 'text-gray-300'
@@ -72,19 +88,50 @@ export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationP
                 {item.label}
               </button>
             ))}
-            <button
-              onClick={onToggleDarkMode}
-              className={`p-2 rounded-lg transition-all ${
-                isDarkMode
-                  ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700'
-                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-              }`}
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            
+            {/* Contenedor de botones de acción (Idioma y Tema) */}
+            <div className="flex items-center gap-2 pl-4 border-l border-gray-400/30">
+              <button
+                onClick={onToggleLanguage}
+                className={`flex items-center gap-1.5 p-2 rounded-lg transition-all font-bold text-sm ${
+                  isDarkMode
+                    ? 'bg-gray-800 text-cyan-400 hover:bg-gray-700'
+                    : 'bg-gray-100 text-blue-600 hover:bg-gray-200'
+                }`}
+                title="Cambiar idioma"
+              >
+                <Globe size={18} />
+                <span>{language.toUpperCase()}</span>
+              </button>
+              
+              <button
+                onClick={onToggleDarkMode}
+                className={`p-2 rounded-lg transition-all ${
+                  isDarkMode
+                    ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700'
+                    : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                }`}
+                title="Cambiar tema"
+              >
+                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+            </div>
           </div>
 
+          {/* MENÚ MÓVIL (Botones superiores) */}
           <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={onToggleLanguage}
+              className={`flex items-center gap-1 p-2 rounded-lg transition-all font-bold text-xs ${
+                isDarkMode
+                  ? 'bg-gray-800 text-cyan-400 hover:bg-gray-700'
+                  : 'bg-gray-100 text-blue-600 hover:bg-gray-200'
+              }`}
+            >
+              <Globe size={16} />
+              <span>{language.toUpperCase()}</span>
+            </button>
+            
             <button
               onClick={onToggleDarkMode}
               className={`p-2 rounded-lg transition-all ${
@@ -95,6 +142,7 @@ export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationP
             >
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
+            
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={textColorClass}
@@ -105,17 +153,18 @@ export default function Navigation({ isDarkMode, onToggleDarkMode }: NavigationP
         </div>
       </div>
 
+      {/* MENÚ MÓVIL DESPLEGABLE */}
       {isMobileMenuOpen && (
-        <div className={`md:hidden ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg`}>
+        <div className={`md:hidden ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg border-t ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
           <div className="px-4 py-2 space-y-2">
-            {navItems.map((item) => (
+            {currentNavItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`block w-full text-left px-4 py-2 rounded transition-colors ${
+                className={`block w-full text-left font-medium px-4 py-3 rounded transition-colors ${
                   isDarkMode
-                    ? 'text-gray-300 hover:bg-gray-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'text-gray-300 hover:bg-gray-700 hover:text-cyan-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
                 }`}
               >
                 {item.label}

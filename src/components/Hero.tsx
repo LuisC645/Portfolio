@@ -2,9 +2,10 @@ import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 
 interface HeroProps {
   isDarkMode?: boolean;
+  language: 'en' | 'es'; // Propiedad de idioma agregada
 }
 
-export default function Hero({ isDarkMode = false }: HeroProps) {
+export default function Hero({ isDarkMode = false, language }: HeroProps) {
   const scrollToAbout = () => {
     document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -29,7 +30,15 @@ export default function Hero({ isDarkMode = false }: HeroProps) {
 
           <div className="space-y-4 pt-2">
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              👋 Hi! I'm Luis Andrés, an Electronic Engineering student and Lead Researcher. I specialize in <span className="font-semibold text-white">data analysis, machine learning, and full-stack development</span>. I build everything from predictive models to scalable, automated web applications. 🚀
+              {language === 'en' ? (
+                <>
+                  👋 Hi! I'm Luis Andrés, an Electronic Engineering student and Researcher. I specialize in <span className="font-semibold text-white">data analysis, machine learning, and full-stack development</span>. I build everything from predictive models to scalable, automated web applications. 🚀
+                </>
+              ) : (
+                <>
+                  👋 ¡Hola! Soy Luis Andrés, estudiante de Ingeniería Electrónica e investigador. Me especializo en <span className="font-semibold text-white">análisis de datos, machine learning y desarrollo full-stack</span>. Creo desde modelos predictivos hasta aplicaciones web escalables y automatizadas. 🚀
+                </>
+              )}
             </p>
           </div>
 

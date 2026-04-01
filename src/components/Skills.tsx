@@ -8,14 +8,17 @@ interface SkillCategory {
 
 interface SkillsProps {
   isDarkMode?: boolean;
+  language: 'en' | 'es';
 }
 
-export default function Skills({ isDarkMode = false }: SkillsProps) {
+export default function Skills({ isDarkMode = false, language }: SkillsProps) {
   const [activeCategory, setActiveCategory] = useState(0);
 
-  const categories: SkillCategory[] = [
+  // Definimos las categorías con sus títulos traducibles
+  const categories: (Omit<SkillCategory, 'title'> & { titleEn: string; titleEs: string })[] = [
     {
-      title: 'Hardware & Electronics',
+      titleEn: 'Hardware & Electronics',
+      titleEs: 'Hardware y Electrónica',
       color: 'blue',
       tools: [
         'Circuit Design',
@@ -28,7 +31,8 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
       ],
     },
     {
-      title: 'Programming Languages',
+      titleEn: 'Programming Languages',
+      titleEs: 'Lenguajes de Programación',
       color: 'cyan',
       tools: [
         'C++',
@@ -41,7 +45,8 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
       ],
     },
     {
-      title: 'Web Development',
+      titleEn: 'Web Development',
+      titleEs: 'Desarrollo Web',
       color: 'teal',
       tools: [
         'React',
@@ -53,7 +58,8 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
       ],
     },
     {
-      title: 'Data Science & ML',
+      titleEn: 'Data Science & ML',
+      titleEs: 'Ciencia de Datos y ML',
       color: 'green',
       tools: [
         'TensorFlow',
@@ -91,13 +97,13 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
     <section id="skills" className={`py-20 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className={`text-4xl font-bold text-center mb-12 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-          Technical Skills
+          {language === 'en' ? 'Technical Skills' : 'Habilidades Técnicas'}
         </h2>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (
             <button
-              key={category.title}
+              key={index}
               onClick={() => setActiveCategory(index)}
               className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                 activeCategory === index
@@ -107,14 +113,14 @@ export default function Skills({ isDarkMode = false }: SkillsProps) {
                   : 'bg-white text-gray-600 hover:bg-gray-100'
               }`}
             >
-              {category.title}
+              {language === 'en' ? category.titleEn : category.titleEs}
             </button>
           ))}
         </div>
 
         <div className={`max-w-4xl mx-auto rounded-lg shadow-lg p-8 ${isDarkMode ? 'dark bg-gray-800' : 'bg-white'}`}>
           <h3 className={`text-2xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            {categories[activeCategory].title}
+            {language === 'en' ? categories[activeCategory].titleEn : categories[activeCategory].titleEs}
           </h3>
           <div className="flex flex-wrap gap-3">
             {categories[activeCategory].tools.map((tool) => (
