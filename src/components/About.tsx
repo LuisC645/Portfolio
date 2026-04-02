@@ -7,7 +7,7 @@ interface AboutProps {
 }
 
 export default function About({ isDarkMode = false, language }: AboutProps) {
-  const personalPhotoUrl = "../img/profile.jpeg";
+  const personalPhotoUrl = "./img/profile.jpeg";
 
   // Variantes para las tarjetas superiores (Efecto escalonado)
   const cardVariants: Variants = {
