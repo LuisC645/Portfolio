@@ -2,6 +2,17 @@ import { useState, useEffect } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 
+
+import video from '../assets/face.webp';
+import emotion from '../assets/SVM.webp';
+import gps from '../assets/gps.webp';
+import logger from '../assets/logger.webp';
+import reaction from '../assets/game.webp';
+import stm32 from '../assets/stm32.webp';
+import realestate from '../assets/realstate.webp';
+import beauty from '../assets/beauty.webp';
+import portfolio from '../assets/portfolio.webp';
+
 // --- MACROS / CONSTANTES (Datos que no cambian por idioma) ---
 const GITHUB_BASE = 'https://github.com/LuisC645';
 
@@ -9,55 +20,55 @@ const PROJECT_ASSETS = {
   emotion: {
     category: 'Data Science',
     tags: ['Python', 'Machine Learning', 'SVM', 'PCA'],
-    image: '../assets/SVM.webp',
+    image: emotion,
     githubUrl: GITHUB_BASE + '/High-Low_Emotions',
   },
   video: {
     category: 'Data Science',
     tags: ['Computer Vision', 'MediaPipe', 'Python'],
-    image: '../assets/face.webp',
+    image: video,
     githubUrl: GITHUB_BASE + '/video-processing',
   },
   gps: {
     category: 'Hardware',
     tags: ['Embedded Systems', 'Raspberry Pi', 'C/C++'],
-    image: '../assets/gps.webp',
+    image: gps,
     githubUrl: GITHUB_BASE + '/GPS_RP2040',
   },
   logger: {
     category: 'Hardware',
     tags: ['C', 'RP2040', 'Embedded Systems', 'CMake'],
-    image: '../assets/logger.webp',
+    image: logger,
     githubUrl: GITHUB_BASE + '/Data_logger_RP2040 ',
   },
   reaction: {
     category: 'Hardware',
     tags: ['C', 'RP2040', 'State Machine', 'Electronics'],
-    image: '../assets/game.webp',
+    image: reaction,
     githubUrl: GITHUB_BASE + '/Reaction_game_RP240 ',
   },
   stm32: {
     category: 'Hardware',
     tags: ['C', 'STM32', 'HAL', 'Microcontrollers'],
-    image: '../assets/stm32.webp',
+    image: stm32,
     githubUrl: GITHUB_BASE + '/EXTI_STM32L4-',
   },
   realestate: {
     category: 'Software',
     tags: ['Frontend', 'Web Development', 'UI/UX'],
-    image: '../assets/realstate.webp',
+    image: realestate,
     githubUrl: GITHUB_BASE + '/Bienes_raices',
   },
   beauty: {
     category: 'Software',
     tags: ['Frontend', 'React', 'CSS'],
-    image: '../assets/beauty.webp',
+    image: beauty,
     githubUrl: GITHUB_BASE + '/SalonBelleza',
   },
   portfolio: {
     category: 'Software',
     tags: ['React', 'TypeScript', 'Tailwind CSS'],
-    image: '../assets/portfolio.webp',
+    image: portfolio,
     githubUrl: GITHUB_BASE + '/portfolio',
   }
 };

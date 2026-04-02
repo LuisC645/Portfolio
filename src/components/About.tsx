@@ -1,5 +1,6 @@
 import { Cpu, Code, Brain } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
+import foto1 from "../assets/profile.jpeg";
 
 interface AboutProps {
   isDarkMode?: boolean;
@@ -7,7 +8,6 @@ interface AboutProps {
 }
 
 export default function About({ isDarkMode = false, language }: AboutProps) {
-  const personalPhotoUrl = "../assets/profile.jpeg";
 
   // Variantes para las tarjetas superiores (Efecto escalonado)
   const cardVariants: Variants = {
@@ -123,7 +123,7 @@ export default function About({ isDarkMode = false, language }: AboutProps) {
           >
             <div className={`relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 ${isDarkMode ? 'border-gray-800' : 'border-gray-100'} shadow-xl`}>
               <img
-                src={personalPhotoUrl}
+                src={foto1}
                 alt="Luis Andrés Castillo"
                 className="w-full h-full object-cover"
                 loading="lazy"
